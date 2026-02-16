@@ -45,7 +45,7 @@ The model emphasizes high reliability for early screening, as demonstrated by th
     * `Supplementary_Notebook_S2.ipynb`: R code for statistical modeling, visualization, and evaluation.
 * **`docs/`**
     * `Full_Paper.pdf`: Detailed research report including clinical discussion.
-    * `Presentation.pptx`: Presentation slides for the oral defense.
+
 
 ## Authors
 * Angela Coloma Escudero
