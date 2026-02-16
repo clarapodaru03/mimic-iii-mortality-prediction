@@ -48,8 +48,8 @@ The model emphasizes high reliability for early screening, as demonstrated by th
 
 
 ## Authors
-* Angela Coloma Escudero
 * Clara Podaru Savu
+*  Angela Coloma Escudero
 * Albert Garcia Bernat
 
 ## License
