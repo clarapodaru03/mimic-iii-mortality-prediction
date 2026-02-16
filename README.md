@@ -1,48 +1,55 @@
-# mimic-iii-mortality-prediction
-
 # Early Prediction of In-Hospital Mortality: An Analysis of the MIMIC-III Database
 
 ## Project Overview
-This repository contains a clinical data science study focused on the early identification of mortality risk in critically ill patients. The objective is to evaluate whether routine clinical and laboratory data, collected exclusively within the first 24 hours of Intensive Care Unit (ICU) admission, are sufficient to provide reliable risk stratification.
+This repository contains a clinical data science study focused on the early identification of mortality risk in critically ill patients. The primary objective is to evaluate the predictive power of routine electronic health record (EHR) data—specifically demographics, vital signs, and laboratory measurements—collected exclusively within the first 24 hours of Intensive Care Unit (ICU) admission.
 
-The study prioritizes model interpretability to ensure clinical relevance and transparency, moving away from "black-box" algorithmic approaches in high-stakes medical environments.
+By utilizing interpretable statistical methods, this project aims to provide a transparent screening tool that complements clinical judgment and supports early resource allocation in critical care settings.
 
 ## Research Question
-Can in-hospital mortality be successfully predicted using routine clinical and laboratory data obtained solely during the first 24 hours of ICU admission?
+"Can in-hospital mortality be successfully predicted using only routine clinical data from the first 24 hours of ICU admission?"
+
+## Data Access and Confidentiality
+The dataset used in this study is **MIMIC-III** (Medical Information Mart for Intensive Care III). 
+
+**Important Notice:** Due to the Data Use Agreement (DUA) and the sensitive nature of patient health information, the raw data files (CSV or SQL exports) are not included in this repository. Access to MIMIC-III is restricted to researchers who have completed the CITI Program "Data or Specimens Only Research" course and have been granted formal access by PhysioNet.
+
+To replicate this study, users must:
+1. Obtain authorized access via [PhysioNet](https://mimic.mit.edu/).
+2. Follow the SQL extraction protocols documented in the `notebooks/` directory to recreate the study cohort.
 
 ## Methodology and Technical Stack
-The project is implemented entirely in **R**, leveraging the following methodology:
+The analysis was implemented using the **R programming language** (v4.0+) within a Jupyter environment. The workflow includes:
 
-* **Data Source:** Retrospective analysis of the MIMIC-III (Medical Information Mart for Intensive Care III) database, comprising over 32,000 adult admissions.
-* **Data Wrangling:** Implemented using `dplyr` and `tidyr` for SQL-based extraction and cohort refinement.
-* **Preprocessing:** * **Winsorization:** Outliers were capped at the 1st and 99th percentiles to mitigate noise while preserving critical clinical signals.
-    * **Standardization:** Continuous variables were scaled to ensure comparability between different physiological units.
-* **Statistical Modeling:** A Weighted Logistic Regression was utilized to address the significant class imbalance (10.96% mortality rate), optimizing the model for clinical sensitivity.
-* **Evaluation:** Performance was assessed using the `pROC` library, focusing on AUC-ROC, Sensitivity, and Negative Predictive Value (NPV).
+* **Data Extraction:** SQL queries managed via `DBI` and `RMariaDB`.
+* **Data Wrangling:** Extensive use of `dplyr` and `tidyr` for cohort selection and variable cleaning.
+* **Preprocessing:** Outliers were managed using **Winsorization** (1st and 99th percentiles) to maintain clinical signal while reducing noise.
+* **Modeling:** A **Weighted Logistic Regression** was employed to address the class imbalance (10.96% mortality rate), prioritizing clinical sensitivity.
+* **Evaluation:** Performance analysis conducted with the `pROC` library.
 
 ## Key Results
-The model demonstrates solid discriminative power and high clinical safety margins for early screening:
+The model emphasizes high reliability for early screening, as demonstrated by the following metrics:
 
-| Metric | Value | Clinical Significance |
+| Metric | Value | Interpretation |
 | :--- | :--- | :--- |
-| **AUC-ROC** | **0.7255** | Moderate-to-good discriminative capacity for early data. |
-| **NPV** | **93.7%** | High reliability for identifying low-risk patients. |
-| **Sensitivity** | **61.4%** | Effective detection of the majority of critical cases. |
-| **Lactate (OR)** | **1.46** | Strongest independent metabolic predictor. |
-| **Creatinine (OR)** | **1.31** | Significant marker of early acute kidney injury risk. |
+| **AUC-ROC** | **0.7255** | Solid discriminative power using early-window data. |
+| **NPV** | **93.7%** | High certainty when identifying stable survivors. |
+| **Sensitivity** | **61.4%** | Effective detection of the majority of high-risk cases. |
+| **Lactate (OR)** | **1.46** | Strongest independent metabolic risk predictor. |
+| **Creatinine (OR)** | **1.31** | Key marker of early renal dysfunction and risk. |
 
 ## Repository Structure
 * **`notebooks/`**
-    * `Supplementary_Notebook_S1.ipynb`: Data extraction via SQL, cleaning, and Winsorization protocols in R.
-    * `Supplementary_Notebook_S2.ipynb`: Statistical modeling, Forest Plot generation, and performance evaluation.
+    * `Supplementary_Notebook_S1.ipynb`: R code for database connection, SQL extraction, and data cleaning.
+    * `Supplementary_Notebook_S2.ipynb`: R code for statistical modeling, visualization, and evaluation.
 * **`docs/`**
-    * `Early prediction of in-hospital mortality using routinely collected electronic health record data_ an analysis of the MIMIC-III database.pdf`: Comprehensive research report and literature review.
-   
+    * `Full_Paper.pdf`: Detailed research report including clinical discussion.
+    * `Presentation.pptx`: Presentation slides for the oral defense.
 
 ## Authors
-* **Clara Podaru Savu**
-* **Angela Coloma Escudero**
-* **Albert Garcia Bernat**
+* Angela Coloma Escudero
+* Clara Podaru Savu
+* Albert Garcia Bernat
 
 ## License
+This project is licensed under the MIT License.
 This project is for educational and research purposes. Access to the underlying MIMIC-III data requires a formal Data Use Agreement (DUA) and completion of CITI Program training.
