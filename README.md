@@ -1,3 +1,5 @@
+
+
 # Early Prediction of In-Hospital Mortality: An Analysis of the MIMIC-III Database
 
 ## Project Overview
@@ -52,4 +54,3 @@ The model emphasizes high reliability for early screening, as demonstrated by th
 
 ## License
 This project is licensed under the MIT License.
-This project is for educational and research purposes. Access to the underlying MIMIC-III data requires a formal Data Use Agreement (DUA) and completion of CITI Program training.
